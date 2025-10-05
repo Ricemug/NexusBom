@@ -14,9 +14,9 @@ members = [
 [workspace.package]
 version = "0.1.0"
 edition = "2021"
-authors = ["Your Name <your.email@example.com>"]
-license = "MIT OR Apache-2.0"
-repository = "https://github.com/yourusername/bom"
+authors = ["Ivan <xiaoivan1@proton.me>"]
+license = "AGPL-3.0-or-later OR LicenseRef-Commercial"
+repository = "https://github.com/Ricemug/bom"
 
 [workspace.dependencies]
 # Serialization
