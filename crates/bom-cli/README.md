@@ -13,7 +13,7 @@ Multi-language BOM calculation tool with i18n support.
 
 ### Download Binary (Recommended for End Users)
 
-Download the pre-built binary for your platform from [GitHub Releases](https://github.com/Ricemug/bom/releases):
+Download the pre-built binary for your platform from [GitHub Releases](https://github.com/Ricemug/NexusBom/releases):
 
 - **Linux**: `bom-linux-amd64`
 - **macOS (Intel)**: `bom-macos-amd64`
@@ -304,9 +304,9 @@ head example_bom.csv
 
 ## 📞 Support
 
-- **Issues**: https://github.com/Ricemug/bom/issues
+- **Issues**: https://github.com/Ricemug/NexusBom/issues
 - **Email**: xiaoivan1@proton.me
-- **Documentation**: https://github.com/Ricemug/bom
+- **Documentation**: https://github.com/Ricemug/NexusBom
 
 ## 📜 License
 

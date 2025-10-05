@@ -14,7 +14,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ### 2. 建置專案
 
 ```bash
-git clone https://github.com/Ricemug/bom
+git clone https://github.com/Ricemug/NexusBom
 cd bom
 cargo build --release
 ```
@@ -44,9 +44,9 @@ cargo run
 
 ```toml
 [dependencies]
-bom-core = { git = "https://github.com/Ricemug/bom" }
-bom-calc = { git = "https://github.com/Ricemug/bom" }
-bom-graph = { git = "https://github.com/Ricemug/bom" }
+bom-core = { git = "https://github.com/Ricemug/NexusBom" }
+bom-calc = { git = "https://github.com/Ricemug/NexusBom" }
+bom-graph = { git = "https://github.com/Ricemug/NexusBom" }
 rust_decimal = "1.33"
 chrono = "0.4"
 uuid = { version = "1.6", features = ["v4"] }

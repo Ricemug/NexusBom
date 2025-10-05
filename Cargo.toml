@@ -16,7 +16,7 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Ivan <xiaoivan1@proton.me>"]
 license = "AGPL-3.0-or-later OR LicenseRef-Commercial"
-repository = "https://github.com/Ricemug/bom"
+repository = "https://github.com/Ricemug/NexusBom"
 
 [workspace.dependencies]
 # Serialization

@@ -29,15 +29,15 @@
 
 ```toml
 [dependencies]
-bom-core = { git = "https://github.com/Ricemug/bom" }
-bom-calc = { git = "https://github.com/Ricemug/bom" }
-bom-graph = { git = "https://github.com/Ricemug/bom" }
+bom-core = { git = "https://github.com/Ricemug/NexusBom" }
+bom-calc = { git = "https://github.com/Ricemug/NexusBom" }
+bom-graph = { git = "https://github.com/Ricemug/NexusBom" }
 ```
 
 ### C/C++ (via FFI)
 
 ```bash
-git clone https://github.com/Ricemug/bom
+git clone https://github.com/Ricemug/NexusBom
 cd bom/crates/bom-ffi
 cargo build --release
 # Header: target/release/include/bom.h
