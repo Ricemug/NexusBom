@@ -8,6 +8,7 @@ members = [
     "crates/bom-ffi",
     "crates/bom-adapters",
     "crates/bom-benches",
+    "crates/bom-cli",
 ]
 
 [workspace.package]

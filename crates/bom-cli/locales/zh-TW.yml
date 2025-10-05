@@ -1,0 +1,63 @@
+zh-TW:
+  app:
+    name: "BOM 計算引擎命令列工具"
+    description: "高效能物料清單計算工具"
+    version: "版本 %{version}"
+
+  commands:
+    explode:
+      name: "explode"
+      about: "展開 BOM 結構以計算物料需求"
+      component_help: "要展開的組件 ID"
+      quantity_help: "製造數量"
+      format_help: "輸出格式 (json, csv, table)"
+      success: "物料展開計算完成"
+      result_header: "%{component} 的物料展開結果 (數量: %{qty})"
+      level: "階層 %{level}"
+      component: "組件"
+      quantity: "數量"
+      total_items: "總項目數: %{count}"
+
+    cost:
+      name: "cost"
+      about: "計算 BOM 總成本"
+      component_help: "要計算成本的組件 ID"
+      format_help: "輸出格式 (json, csv, table)"
+      success: "成本計算完成"
+      result_header: "%{component} 的成本明細"
+      total_cost: "總成本"
+      material_cost: "材料成本"
+      direct_cost: "直接成本"
+      cost_breakdown: "成本分析"
+
+    where_used:
+      name: "where-used"
+      about: "查詢組件使用位置"
+      component_help: "要搜尋的組件 ID"
+      format_help: "輸出格式 (json, csv, table)"
+      success: "反查分析完成"
+      result_header: "%{component} 的使用位置分析"
+      used_in: "用於 %{count} 個組件"
+      parent: "父組件"
+      usage_qty: "使用數量"
+
+  options:
+    input: "輸入檔案 (JSON 或 CSV 格式)"
+    output: "輸出檔案 (可選，未指定時輸出到標準輸出)"
+    lang: "語言 (en, zh-TW, zh-CN, de)"
+    verbose: "詳細輸出"
+
+  errors:
+    file_not_found: "找不到檔案: %{path}"
+    invalid_format: "無效的檔案格式: %{format}"
+    parse_error: "檔案解析失敗: %{error}"
+    component_not_found: "找不到組件: %{id}"
+    calculation_error: "計算錯誤: %{error}"
+    io_error: "I/O 錯誤: %{error}"
+    invalid_quantity: "無效的數量: %{qty}"
+
+  messages:
+    loading: "從 %{path} 載入 BOM 資料..."
+    processing: "處理中..."
+    done: "完成！"
+    no_results: "沒有找到結果"

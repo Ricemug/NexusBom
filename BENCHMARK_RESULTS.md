@@ -1,5 +1,7 @@
 # BOM Engine Benchmark Results
 
+[繁體中文](./docs/BENCHMARK_RESULTS.zh-TW.md) | [简体中文](./docs/BENCHMARK_RESULTS.zh-CN.md) | [Deutsch](./docs/BENCHMARK_RESULTS.de.md)
+
 ## Performance Metrics
 
 ### Graph Construction
@@ -22,11 +24,11 @@
 
 ## Summary
 
-BOM 計算引擎展現出優異的性能：
+The BOM Calculation Engine demonstrates excellent performance:
 
-- 圖結構建構速度極快（微秒級）
-- 物料展開計算高效（微秒級）
-- 成本計算快速（微秒級）
-- Where-Used 反查速度極快（納秒級）
+- Graph construction is extremely fast (microsecond level)
+- Material explosion calculation is highly efficient (microsecond level)
+- Cost calculation is rapid (microsecond level)
+- Where-Used reverse lookup is blazing fast (nanosecond level)
 
-所有核心功能都在微秒到納秒級別完成，能夠支持大規模 BOM 計算需求。
+All core functions complete in microseconds to nanoseconds, capable of supporting large-scale BOM calculation requirements.

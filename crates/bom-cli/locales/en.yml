@@ -1,0 +1,63 @@
+en:
+  app:
+    name: "BOM Calculation Engine CLI"
+    description: "High-performance Bill of Materials calculation tool"
+    version: "Version %{version}"
+
+  commands:
+    explode:
+      name: "explode"
+      about: "Explode BOM structure to calculate material requirements"
+      component_help: "Component ID to explode"
+      quantity_help: "Quantity to manufacture"
+      format_help: "Output format (json, csv, table)"
+      success: "Material explosion completed successfully"
+      result_header: "Material Explosion Result for %{component} (Qty: %{qty})"
+      level: "Level %{level}"
+      component: "Component"
+      quantity: "Quantity"
+      total_items: "Total items: %{count}"
+
+    cost:
+      name: "cost"
+      about: "Calculate total cost for a BOM"
+      component_help: "Component ID to calculate cost"
+      format_help: "Output format (json, csv, table)"
+      success: "Cost calculation completed successfully"
+      result_header: "Cost Breakdown for %{component}"
+      total_cost: "Total Cost"
+      material_cost: "Material Cost"
+      direct_cost: "Direct Cost"
+      cost_breakdown: "Cost Breakdown"
+
+    where_used:
+      name: "where-used"
+      about: "Find where a component is used"
+      component_help: "Component ID to search"
+      format_help: "Output format (json, csv, table)"
+      success: "Where-used analysis completed successfully"
+      result_header: "Where-Used Analysis for %{component}"
+      used_in: "Used in %{count} assemblies"
+      parent: "Parent"
+      usage_qty: "Usage Qty"
+
+  options:
+    input: "Input file (JSON or CSV format)"
+    output: "Output file (optional, prints to stdout if not specified)"
+    lang: "Language (en, zh-TW, zh-CN, de)"
+    verbose: "Verbose output"
+
+  errors:
+    file_not_found: "File not found: %{path}"
+    invalid_format: "Invalid file format: %{format}"
+    parse_error: "Failed to parse file: %{error}"
+    component_not_found: "Component not found: %{id}"
+    calculation_error: "Calculation error: %{error}"
+    io_error: "I/O error: %{error}"
+    invalid_quantity: "Invalid quantity: %{qty}"
+
+  messages:
+    loading: "Loading BOM data from %{path}..."
+    processing: "Processing..."
+    done: "Done!"
+    no_results: "No results found"

@@ -1,249 +1,251 @@
-# BOM 項目總結
+# BOM Project Summary
 
-## 🎯 項目目標
+[繁體中文](./docs/PROJECT_SUMMARY.zh-TW.md) | [简体中文](./docs/PROJECT_SUMMARY.zh-CN.md) | [Deutsch](./docs/PROJECT_SUMMARY.de.md)
 
-打造一個高性能、可嵌入各家 PLM/ERP 系統的 BOM（Bill of Materials）計算引擎，使用 Rust 實現。
+## 🎯 Project Goals
 
-## ✅ 已完成功能
+Build a high-performance, embeddable BOM (Bill of Materials) calculation engine for PLM/ERP systems, implemented in Rust.
 
-### 1. 核心架構
+## ✅ Completed Features
 
-- ✅ **Cargo Workspace 結構**
-  - 6 個專門的 crates
-  - 共享依賴管理
-  - 模組化設計
+### 1. Core Architecture
 
-- ✅ **自建圖數據結構** (`bom-graph`)
-  - Arena-based 內存分配（連續內存，提升緩存命中率）
-  - 支持增量計算（dirty flag 機制）
-  - 拓撲排序（bottom-up 和 top-down）
-  - 層級分組（支持並行處理）
-  - 循環依賴檢測
+- ✅ **Cargo Workspace Structure**
+  - 6 specialized crates
+  - Shared dependency management
+  - Modular design
 
-### 2. BOM 計算引擎 (`bom-calc`)
+- ✅ **Custom Graph Data Structure** (`bom-graph`)
+  - Arena-based memory allocation (contiguous memory, improved cache hit rate)
+  - Incremental calculation support (dirty flag mechanism)
+  - Topological sorting (bottom-up and top-down)
+  - Level grouping (parallel processing support)
+  - Cycle detection
 
-- ✅ **物料展開 (Material Explosion)**
-  - 多層級 BOM 展開
-  - 並行計算（使用 rayon + 拓撲分層）
-  - 損耗率處理
-  - 路徑追蹤（從根到葉的所有路徑）
-  - 單層和多層展開
+### 2. BOM Calculation Engine (`bom-calc`)
 
-- ✅ **成本計算 (Costing)**
-  - Bottom-up 多層級成本累加
-  - 批量並行計算
-  - 成本驅動分析（找出最貴的組件）
-  - 成本匯總 (Cost Rollup)
+- ✅ **Material Explosion**
+  - Multi-level BOM expansion
+  - Parallel computation (using rayon + topological layering)
+  - Scrap rate handling
+  - Path tracking (all paths from root to leaf)
+  - Single and multi-level expansion
 
-- ✅ **Where-Used 分析**
-  - 反查組件用在哪些產品
-  - 找出受影響的根組件
-  - ECO 變更影響分析
-  - 共用件識別
+- ✅ **Costing**
+  - Bottom-up multi-level cost rollup
+  - Batch parallel calculation
+  - Cost driver analysis (find most expensive components)
+  - Cost rollup
 
-### 3. 數據模型 (`bom-core`)
+- ✅ **Where-Used Analysis**
+  - Reverse lookup: which products use a component
+  - Find affected root components
+  - ECO change impact analysis
+  - Common part identification
 
-完全兼容 SAP/Oracle 的 BOM 結構：
+### 3. Data Models (`bom-core`)
 
-- ✅ **Component（組件）**
-  - 標準成本
-  - 採購類型（Make/Buy）
-  - 前置時間
-  - 組織/工廠
+Fully compatible with SAP/Oracle BOM structures:
 
-- ✅ **BomItem（BOM 項目）**
-  - 生效日期範圍
-  - 損耗率
-  - 替代料組
-  - 幻影件標記
-  - 參考位號
+- ✅ **Component**
+  - Standard cost
+  - Procurement type (Make/Buy)
+  - Lead time
+  - Organization/Plant
 
-- ✅ **BomHeader（BOM 表頭）**
-  - BOM 用途（生產/工程/成本/維修）
+- ✅ **BomItem**
+  - Effective date range
+  - Scrap rate
+  - Substitute groups
+  - Phantom flag
+  - Reference designator
+
+- ✅ **BomHeader**
+  - BOM usage (Production/Engineering/Costing/Maintenance)
   - Alternative BOM
-  - 狀態管理
+  - Status management
 
-- ✅ **版本控制**
-  - 樂觀鎖（version 欄位）
-  - 變更追蹤
+- ✅ **Version Control**
+  - Optimistic locking (version field)
+  - Change tracking
 
-### 4. Repository 模式
+### 4. Repository Pattern
 
-- ✅ Trait-based 抽象
-- ✅ 內存實現（用於測試）
-- 為 PLM/ERP 適配器預留接口
+- ✅ Trait-based abstraction
+- ✅ In-memory implementation (for testing)
+- Reserved interface for PLM/ERP adapters
 
-### 5. 測試與文檔
+### 5. Testing & Documentation
 
-- ✅ **12 個單元測試，全部通過**
-  - 簡單 BOM 測試
-  - 多層級 BOM 測試
-  - 循環依賴檢測測試
-  - 成本計算測試
-  - Where-Used 測試
-  - 整合測試
+- ✅ **12 Unit Tests, All Passing**
+  - Simple BOM tests
+  - Multi-level BOM tests
+  - Cycle detection tests
+  - Cost calculation tests
+  - Where-Used tests
+  - Integration tests
 
-- ✅ **完整示例程序**
-  - 自行車 BOM 示例
-  - 展示所有核心功能
-  - 中英文註釋
+- ✅ **Complete Example Program**
+  - Bicycle BOM example
+  - Demonstrates all core features
+  - Bilingual comments
 
-- ✅ **詳細文檔**
+- ✅ **Detailed Documentation**
   - README.md
   - CHANGELOG.md
-  - 代碼註釋
+  - Code comments
 
-## 📊 性能特性
+## 📊 Performance Characteristics
 
-### 並行計算
-- 使用 rayon 進行數據並行
-- 層級並行：同一層的節點可並行處理
-- Work-stealing 負載均衡
+### Parallel Computation
+- Data parallelism using rayon
+- Level parallelism: nodes at the same level can be processed in parallel
+- Work-stealing load balancing
 
-### 內存優化
-- Arena allocator 連續內存分配
-- 減少指針追蹤
-- 提升緩存局部性
+### Memory Optimization
+- Arena allocator for contiguous memory allocation
+- Reduced pointer chasing
+- Improved cache locality
 
-### 增量計算
-- Dirty flag 機制
-- 只重算變更的子樹
-- 緩存中間結果
+### Incremental Calculation
+- Dirty flag mechanism
+- Only recalculate changed subtrees
+- Cache intermediate results
 
-## 🚧 待實現功能
+## 🚧 Future Features
 
-### 高優先級
+### High Priority
 
-1. **緩存層** (`bom-cache`)
-   - L1: 內存緩存 (moka)
-   - L2: 持久化緩存 (redb)
-   - 緩存失效策略
+1. **Caching Layer** (`bom-cache`)
+   - L1: In-memory cache (moka)
+   - L2: Persistent cache (redb)
+   - Cache invalidation strategy
 
-2. **FFI 綁定** (`bom-ffi`)
-   - C ABI 接口
-   - 自動生成 header (cbindgen)
-   - 支持 Java/Python/.NET 調用
+2. **FFI Bindings** (`bom-ffi`)
+   - C ABI interface
+   - Auto-generate headers (cbindgen)
+   - Support Java/Python/.NET calls
 
-3. **性能 Benchmark**
-   - 大規模 BOM 測試（1000+ 組件）
-   - 並行計算性能測試
-   - 與其他 BOM 引擎對比
+3. **Performance Benchmarks**
+   - Large-scale BOM tests (1000+ components)
+   - Parallel computation performance tests
+   - Comparison with other BOM engines
 
-### 中優先級
+### Medium Priority
 
-4. **PLM/ERP 適配器** (`bom-adapters`)
-   - SAP BAPI/OData 接口
-   - Oracle REST API 接口
-   - 通用 REST API 適配器
+4. **PLM/ERP Adapters** (`bom-adapters`)
+   - SAP BAPI/OData interface
+   - Oracle REST API interface
+   - Generic REST API adapter
 
-5. **高級功能**
-   - 工程 BOM vs 製造 BOM
-   - 路由 (Routing) 整合
-   - 批量處理優化
+5. **Advanced Features**
+   - Engineering BOM vs Manufacturing BOM
+   - Routing integration
+   - Batch processing optimization
 
-### 低優先級
+### Low Priority
 
-6. **SIMD 優化**
-   - 數值計算加速
-   - 批量成本計算
+6. **SIMD Optimization**
+   - Numerical computation acceleration
+   - Batch cost calculation
 
-## 🎓 技術亮點
+## 🎓 Technical Highlights
 
-### 1. 自建圖結構
-相比通用圖庫（如 petgraph），我們的實現：
-- 針對 BOM 特性優化（大多是樹狀，少量共用件）
-- 更好的緩存局部性
-- 支持增量計算
+### 1. Custom Graph Structure
+Compared to general graph libraries (like petgraph), our implementation:
+- Optimized for BOM characteristics (mostly tree-like, few shared parts)
+- Better cache locality
+- Incremental calculation support
 
-### 2. 層級並行
-創新的並行策略：
-- 拓撲排序 + 層級分組
-- 同層節點無依賴，可完全並行
-- 充分利用多核 CPU
+### 2. Level-based Parallelism
+Innovative parallel strategy:
+- Topological sorting + level grouping
+- Nodes in the same level have no dependencies, fully parallelizable
+- Fully utilize multi-core CPU
 
-### 3. SAP/Oracle 相容
-完整支持企業級 PLM/ERP 需求：
-- 生效日期
-- 替代料
-- 幻影件
-- 多組織
-- 版本控制
+### 3. SAP/Oracle Compatibility
+Full support for enterprise PLM/ERP requirements:
+- Effective dates
+- Substitutes
+- Phantom items
+- Multi-organization
+- Version control
 
-## 📈 未來展望
+## 📈 Future Outlook
 
-### 短期（1-2個月）
-- 完成緩存層實現
-- 完成 FFI 綁定
-- 建立 benchmark 套件
+### Short-term (1-2 months)
+- Complete caching layer implementation
+- Complete FFI bindings
+- Establish benchmark suite
 
-### 中期（3-6個月）
-- SAP/Oracle 適配器實現
-- 實際客戶試點
-- 性能調優
+### Mid-term (3-6 months)
+- SAP/Oracle adapter implementation
+- Real customer pilot
+- Performance tuning
 
-### 長期（6-12個月）
-- SIMD 優化
-- 分散式計算支持
-- 雲原生部署
+### Long-term (6-12 months)
+- SIMD optimization
+- Distributed computing support
+- Cloud-native deployment
 
-## 🔧 技術棧
+## 🔧 Technology Stack
 
-| 類別 | 技術 | 版本 |
-|------|------|------|
-| 語言 | Rust | 1.83+ |
-| 並行 | rayon | 1.11 |
-| 序列化 | serde | 1.0 |
-| 數值 | rust_decimal | 1.38 |
-| 錯誤 | thiserror | 1.0 |
-| 時間 | chrono | 0.4 |
+| Category | Technology | Version |
+|----------|-----------|---------|
+| Language | Rust | 1.83+ |
+| Parallelism | rayon | 1.11 |
+| Serialization | serde | 1.0 |
+| Numeric | rust_decimal | 1.38 |
+| Error | thiserror | 1.0 |
+| Time | chrono | 0.4 |
 | UUID | uuid | 1.6 |
 
-## 📦 項目結構
+## 📦 Project Structure
 
 ```
 bom/
 ├── crates/
-│   ├── bom-core/          # 數據模型
-│   ├── bom-graph/         # 圖結構
-│   ├── bom-calc/          # 計算引擎
-│   ├── bom-cache/         # 緩存層 [待實現]
-│   ├── bom-ffi/           # FFI 綁定 [待實現]
-│   └── bom-adapters/      # 適配器 [待實現]
+│   ├── bom-core/          # Data models
+│   ├── bom-graph/         # Graph structure
+│   ├── bom-calc/          # Calculation engine
+│   ├── bom-cache/         # Caching layer [To be implemented]
+│   ├── bom-ffi/           # FFI bindings [To be implemented]
+│   └── bom-adapters/      # Adapters [To be implemented]
 ├── examples/
-│   └── simple/            # 示例程序
+│   └── simple/            # Example programs
 ├── README.md
 ├── CHANGELOG.md
 └── PROJECT_SUMMARY.md
 ```
 
-## 🎯 關鍵指標
+## 🎯 Key Metrics
 
-- ✅ **代碼量**: ~3000 行 Rust 代碼
-- ✅ **測試覆蓋**: 12 個單元測試，100% 通過
-- ✅ **編譯時間**: ~10 秒（完整編譯）
-- ✅ **Crates**: 6 個專門模組
-- ✅ **依賴數量**: 核心依賴 < 10 個
+- ✅ **Code Volume**: ~3000 lines of Rust code
+- ✅ **Test Coverage**: 12 unit tests, 100% passing
+- ✅ **Compile Time**: ~10 seconds (full compilation)
+- ✅ **Crates**: 6 specialized modules
+- ✅ **Dependencies**: Core dependencies < 10
 
-## 💡 設計決策
+## 💡 Design Decisions
 
-### 為什麼自建圖結構？
-- 通用圖庫功能過多，有不必要的開銷
-- BOM 有特定模式（多為樹狀，少量共用）
-- 需要增量計算支持
+### Why Build a Custom Graph Structure?
+- General graph libraries have too many features and unnecessary overhead
+- BOM has specific patterns (mostly tree-like, few shared parts)
+- Need incremental calculation support
 
-### 為什麼使用 Arena Allocator？
-- 減少內存碎片
-- 提升緩存命中率
-- 簡化生命週期管理
+### Why Use Arena Allocator?
+- Reduce memory fragmentation
+- Improve cache hit rate
+- Simplify lifetime management
 
-### 為什麼選擇 rayon？
-- 簡單易用的並行 API
-- Work-stealing 自動負載均衡
-- 與 Rust 生態整合良好
+### Why Choose rayon?
+- Easy-to-use parallel API
+- Work-stealing automatic load balancing
+- Well-integrated with Rust ecosystem
 
-## 🏆 成果展示
+## 🏆 Results Showcase
 
-### 示例輸出
+### Example Output
 ```
 === BOM Calculation Example ===
 
@@ -252,7 +254,7 @@ bom/
   Relationships: 4
   Max Depth: 2
 
-🔧 Material Explosion (製造 10 輛自行車):
+🔧 Material Explosion (Manufacturing 10 bicycles):
   Level 0: Bicycle - Quantity: 10
   Level 1: Frame - Quantity: 10
   Level 1: Wheel Set - Quantity: 20
@@ -264,12 +266,12 @@ bom/
 ✅ All calculations completed successfully!
 ```
 
-## 結論
+## Conclusion
 
-這是一個功能完整、設計良好的 BOM 計算引擎基礎架構。核心功能已經實現並測試通過，為後續的擴展（緩存、FFI、適配器）打下了堅實的基礎。
+This is a feature-complete, well-designed BOM calculation engine infrastructure. Core functionality has been implemented and tested, providing a solid foundation for future extensions (caching, FFI, adapters).
 
-特別適合需要高性能 BOM 計算的場景：
-- PLM 系統
-- ERP 系統  
-- MES 系統
-- 供應鏈管理系統
+Particularly suitable for scenarios requiring high-performance BOM calculations:
+- PLM systems
+- ERP systems
+- MES systems
+- Supply chain management systems

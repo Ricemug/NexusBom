@@ -1,54 +1,58 @@
-# 快速入門指南
+# Quick Start Guide
 
-## 5 分鐘上手 BOM 計算引擎
+[繁體中文](./docs/QUICKSTART.zh-TW.md) | [简体中文](./docs/QUICKSTART.zh-CN.md) | [Deutsch](./docs/QUICKSTART.de.md)
 
-### 1. 環境準備
+## Get Started with BOM Engine in 5 Minutes
 
-確保安裝了 Rust：
+### 1. Environment Setup
+
+Install Rust:
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-### 2. 編譯項目
+### 2. Build the Project
 
 ```bash
-cd /home/ivan/code/bom
+git clone https://github.com/Ricemug/bom
+cd bom
 cargo build --release
 ```
 
-### 3. 運行測試
+### 3. Run Tests
 
 ```bash
 cargo test --workspace
 ```
 
-預期輸出：
+Expected output:
 ```
 running 24 tests
 test result: ok. 24 passed; 0 failed
 ```
 
-### 4. 運行示例
+### 4. Run Examples
 
 ```bash
 cd examples/simple
 cargo run
 ```
 
-### 5. 使用庫
+### 5. Use as Library
 
-在你的 `Cargo.toml` 中添加：
+Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-bom-core = { path = "path/to/bom/crates/bom-core" }
-bom-calc = { path = "path/to/bom/crates/bom-calc" }
+bom-core = { git = "https://github.com/Ricemug/bom" }
+bom-calc = { git = "https://github.com/Ricemug/bom" }
+bom-graph = { git = "https://github.com/Ricemug/bom" }
 rust_decimal = "1.33"
 chrono = "0.4"
 uuid = { version = "1.6", features = ["v4"] }
 ```
 
-### 6. 基本用法
+### 6. Basic Usage
 
 ```rust
 use bom_calc::BomEngine;
@@ -57,40 +61,40 @@ use bom_core::*;
 use rust_decimal::Decimal;
 
 fn main() {
-    // 1. 建立 Repository
+    // 1. Create Repository
     let repo = InMemoryRepository::new();
 
-    // 2. 添加組件
+    // 2. Add Components
     repo.add_component(Component {
         id: ComponentId::new("BIKE"),
         description: "Bicycle".to_string(),
         standard_cost: Some(Decimal::from(1000)),
-        // ... 其他欄位
+        // ... other fields
     });
 
-    // 3. 添加 BOM 結構
+    // 3. Add BOM Structure
     repo.add_bom_item(BomItem {
         parent_id: ComponentId::new("BIKE"),
         child_id: ComponentId::new("FRAME"),
         quantity: Decimal::from(1),
-        // ... 其他欄位
+        // ... other fields
     });
 
-    // 4. 建立計算引擎
+    // 4. Create BOM Engine
     let engine = BomEngine::new(repo).unwrap();
 
-    // 5. 物料展開
+    // 5. Material Explosion
     let explosion = engine.explode(
         &ComponentId::new("BIKE"),
         Decimal::from(10)
     ).unwrap();
 
-    // 6. 成本計算
+    // 6. Cost Calculation
     let cost = engine.calculate_cost(
         &ComponentId::new("BIKE")
     ).unwrap();
 
-    // 7. Where-Used 分析
+    // 7. Where-Used Analysis
     let where_used = engine.where_used(
         &ComponentId::new("FRAME")
     ).unwrap();
@@ -99,67 +103,67 @@ fn main() {
 }
 ```
 
-## 常見問題
+## FAQ
 
-### Q: 如何檢測循環依賴？
+### Q: How to detect circular dependencies?
 
-A: BomGraph 在建立時會自動檢測循環依賴：
+A: BomGraph automatically detects circular dependencies during construction:
 
 ```rust
 let graph = BomGraph::from_repository(&repo)?;
-graph.validate()?; // 會返回錯誤如果有循環
+graph.validate()?; // Returns error if there are cycles
 ```
 
-### Q: 如何處理損耗率？
+### Q: How to handle scrap factors?
 
-A: 在 BomItem 中設置 `scrap_factor`：
+A: Set `scrap_factor` in BomItem:
 
 ```rust
 BomItem {
     quantity: Decimal::from(100),
-    scrap_factor: Decimal::from_str("0.05")?, // 5% 損耗
+    scrap_factor: Decimal::from_str("0.05")?, // 5% scrap
     // ...
 }
 ```
 
-有效數量 = quantity * (1 + scrap_factor) = 105
+Effective quantity = quantity * (1 + scrap_factor) = 105
 
-### Q: 如何實現增量計算？
+### Q: How to implement incremental calculation?
 
-A: 使用 dirty flag：
+A: Use dirty flags:
 
 ```rust
-// 標記組件為 dirty
+// Mark component as dirty
 engine.mark_dirty(&ComponentId::new("FRAME"))?;
 
-// 下次計算時只會重算受影響的部分
+// Next calculation only recomputes affected parts
 let cost = engine.calculate_cost(&ComponentId::new("BIKE"))?;
 ```
 
-### Q: 支持哪些 BOM 類型？
+### Q: Which BOM types are supported?
 
-A: 支持所有企業級 BOM 類型：
+A: All enterprise-grade BOM types:
 
-- ✅ 單層 BOM
-- ✅ 多層 BOM
-- ✅ 幻影件 (Phantom)
-- ✅ 替代料組 (Alternative Groups)
-- ✅ 生效日期範圍
-- ✅ Alternative BOM
-- ✅ 不同用途 BOM（生產/工程/成本）
+- ✅ Single-level BOM
+- ✅ Multi-level BOM
+- ✅ Phantom Parts
+- ✅ Alternative Groups
+- ✅ Date Effectivity
+- ✅ Alternate BOMs
+- ✅ Different BOM Usages (Production/Engineering/Costing)
 
-### Q: 性能如何？
+### Q: How is the performance?
 
-A: 核心優化：
+A: Core optimizations:
 
-- **並行計算**: 使用 rayon，多核加速
-- **Arena allocator**: 連續內存，減少緩存未命中
-- **增量計算**: 只重算變更部分
-- **批量操作**: 一次獲取多個組件數據
+- **Parallel Computation**: Using rayon for multi-core acceleration
+- **Arena Allocator**: Contiguous memory for better cache locality
+- **Incremental Calculation**: Only recompute changed parts
+- **Batch Operations**: Fetch multiple components at once
 
-### Q: 如何對接 SAP/Oracle？
+### Q: How to integrate with SAP/Oracle?
 
-A: 實現 `BomRepository` trait：
+A: Implement the `BomRepository` trait:
 
 ```rust
 struct SapBomRepository {
@@ -168,25 +172,25 @@ struct SapBomRepository {
 
 impl BomRepository for SapBomRepository {
     fn get_component(&self, id: &ComponentId) -> Result<Component> {
-        // 調用 SAP BAPI 獲取組件
+        // Call SAP BAPI to get component
     }
 
     fn get_bom_items(&self, ...) -> Result<Vec<BomItem>> {
-        // 調用 SAP BAPI 獲取 BOM
+        // Call SAP BAPI to get BOM
     }
 
-    // ... 其他方法
+    // ... other methods
 }
 
 let engine = BomEngine::new(SapBomRepository::new())?;
 ```
 
-## 下一步
+## Next Steps
 
-- 閱讀 [README.md](README.md) 了解完整功能
-- 查看 [examples/simple](examples/simple) 了解更多示例
-- 閱讀 [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) 了解設計理念
+- Read [README.md](README.md) for full features
+- Check [examples/simple](examples/simple) for more examples
+- Read [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) for design philosophy
 
-## 支持
+## Support
 
-如有問題，請提交 Issue 或查看文檔。
+For questions, please submit an issue or check the documentation.

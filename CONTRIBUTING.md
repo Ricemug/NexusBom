@@ -1,5 +1,7 @@
 # Contributing to BOM Calculation Engine
 
+[繁體中文](./docs/CONTRIBUTING.zh-TW.md) | [简体中文](./docs/CONTRIBUTING.zh-CN.md) | [Deutsch](./docs/CONTRIBUTING.de.md)
+
 Thank you for your interest in contributing! We welcome contributions from the community.
 
 ## 🌍 Languages

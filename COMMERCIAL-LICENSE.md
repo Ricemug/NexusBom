@@ -1,5 +1,7 @@
 # Commercial License Agreement
 
+[繁體中文](./docs/COMMERCIAL-LICENSE.zh-TW.md) | [简体中文](./docs/COMMERCIAL-LICENSE.zh-CN.md) | [Deutsch](./docs/COMMERCIAL-LICENSE.de.md)
+
 ## BOM Calculation Engine - Commercial License
 
 This Commercial License Agreement ("Agreement") is between you (either an individual or a legal entity) and the BOM Engine project.
@@ -63,8 +65,7 @@ Subject to the terms and conditions of this Agreement and upon payment of the ap
 ### Contact
 
 For licensing inquiries:
-- **Email**: [Your Email]
-- **Website**: [Your Website]
+- **Email**: xiaoivan1@proton.me
 
 ### Frequently Asked Questions
 

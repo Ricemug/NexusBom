@@ -1,0 +1,63 @@
+de:
+  app:
+    name: "BOM Berechnungs-Engine CLI"
+    description: "Hochleistungs-Stücklistenberechnungswerkzeug"
+    version: "Version %{version}"
+
+  commands:
+    explode:
+      name: "explode"
+      about: "BOM-Struktur aufschlüsseln, um Materialbedarf zu berechnen"
+      component_help: "Komponenten-ID zum Aufschlüsseln"
+      quantity_help: "Zu fertigende Menge"
+      format_help: "Ausgabeformat (json, csv, table)"
+      success: "Materialaufschlüsselung erfolgreich abgeschlossen"
+      result_header: "Materialaufschlüsselung für %{component} (Menge: %{qty})"
+      level: "Ebene %{level}"
+      component: "Komponente"
+      quantity: "Menge"
+      total_items: "Gesamtanzahl: %{count}"
+
+    cost:
+      name: "cost"
+      about: "Gesamtkosten für eine Stückliste berechnen"
+      component_help: "Komponenten-ID zur Kostenberechnung"
+      format_help: "Ausgabeformat (json, csv, table)"
+      success: "Kostenberechnung erfolgreich abgeschlossen"
+      result_header: "Kostenaufschlüsselung für %{component}"
+      total_cost: "Gesamtkosten"
+      material_cost: "Materialkosten"
+      direct_cost: "Direkte Kosten"
+      cost_breakdown: "Kostenaufschlüsselung"
+
+    where_used:
+      name: "where-used"
+      about: "Finden, wo eine Komponente verwendet wird"
+      component_help: "Zu suchende Komponenten-ID"
+      format_help: "Ausgabeformat (json, csv, table)"
+      success: "Where-Used-Analyse erfolgreich abgeschlossen"
+      result_header: "Where-Used-Analyse für %{component}"
+      used_in: "Verwendet in %{count} Baugruppen"
+      parent: "Übergeordnet"
+      usage_qty: "Verwendungsmenge"
+
+  options:
+    input: "Eingabedatei (JSON- oder CSV-Format)"
+    output: "Ausgabedatei (optional, gibt an stdout aus, falls nicht angegeben)"
+    lang: "Sprache (en, zh-TW, zh-CN, de)"
+    verbose: "Ausführliche Ausgabe"
+
+  errors:
+    file_not_found: "Datei nicht gefunden: %{path}"
+    invalid_format: "Ungültiges Dateiformat: %{format}"
+    parse_error: "Fehler beim Parsen der Datei: %{error}"
+    component_not_found: "Komponente nicht gefunden: %{id}"
+    calculation_error: "Berechnungsfehler: %{error}"
+    io_error: "E/A-Fehler: %{error}"
+    invalid_quantity: "Ungültige Menge: %{qty}"
+
+  messages:
+    loading: "Lade BOM-Daten von %{path}..."
+    processing: "Verarbeite..."
+    done: "Fertig!"
+    no_results: "Keine Ergebnisse gefunden"

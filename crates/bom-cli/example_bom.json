@@ -1,0 +1,63 @@
+{
+  "components": [
+    {
+      "id": "BIKE-001",
+      "description": "Bicycle",
+      "component_type": "FinishedProduct",
+      "standard_cost": "1000.00",
+      "uom": "EA",
+      "procurement_type": "Make",
+      "organization": "PLANT-01"
+    },
+    {
+      "id": "FRAME-001",
+      "description": "Bike Frame",
+      "component_type": "Assembly",
+      "standard_cost": "300.00",
+      "uom": "EA",
+      "procurement_type": "Make",
+      "organization": "PLANT-01"
+    },
+    {
+      "id": "WHEEL-001",
+      "description": "Wheel",
+      "component_type": "Assembly",
+      "standard_cost": "150.00",
+      "uom": "EA",
+      "procurement_type": "Buy",
+      "organization": "PLANT-01"
+    },
+    {
+      "id": "TUBE-001",
+      "description": "Aluminum Tube",
+      "component_type": "Material",
+      "standard_cost": "50.00",
+      "uom": "EA",
+      "procurement_type": "Buy",
+      "organization": "PLANT-01"
+    }
+  ],
+  "bom_items": [
+    {
+      "parent_id": "BIKE-001",
+      "child_id": "FRAME-001",
+      "quantity": "1",
+      "scrap_factor": "0",
+      "sequence": 10
+    },
+    {
+      "parent_id": "BIKE-001",
+      "child_id": "WHEEL-001",
+      "quantity": "2",
+      "scrap_factor": "0.05",
+      "sequence": 20
+    },
+    {
+      "parent_id": "FRAME-001",
+      "child_id": "TUBE-001",
+      "quantity": "4",
+      "scrap_factor": "0.1",
+      "sequence": 10
+    }
+  ]
+}
