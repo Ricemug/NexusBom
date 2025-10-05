@@ -130,10 +130,23 @@ bom/
 ## 📖 Documentation
 
 - [Quick Start Guide](./QUICKSTART.md)
-- [API Documentation](https://docs.rs/bom-core)
 - [Architecture Overview](./PROJECT_SUMMARY.md)
 - [Benchmarks](./BENCHMARK_RESULTS.md)
 - [Contributing Guide](./CONTRIBUTING.md)
+
+### API Documentation
+
+Generate API documentation locally:
+
+```bash
+# Generate and open documentation in browser
+cargo doc --no-deps --open
+
+# Generate documentation for all crates
+cargo doc --workspace --no-deps
+```
+
+Documentation will be available at `target/doc/bom_core/index.html`
 
 ## 💼 Licensing
 

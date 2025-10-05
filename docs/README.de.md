@@ -164,10 +164,26 @@ impl BomRepository for MyCustomRepo {
 
 ## 📚 Dokumentation
 
-- [API-Dokumentation](https://docs.rs/bom-core)
-- [Integrationsleitfaden](./INTEGRATION.md)
-- [Leistungsoptimierung](./PERFORMANCE.md)
-- [FFI-Leitfaden](./FFI_GUIDE.md)
+### API-Dokumentation
+
+API-Dokumentation lokal generieren:
+
+```bash
+# Dokumentation generieren und im Browser öffnen
+cargo doc --no-deps --open
+
+# Dokumentation für alle Crates generieren
+cargo doc --workspace --no-deps
+```
+
+Dokumentation verfügbar unter: `target/doc/bom_core/index.html`
+
+### Weitere Dokumentation
+
+- [Schnellstartanleitung](./QUICKSTART.de.md)
+- [Architekturübersicht](./PROJECT_SUMMARY.de.md)
+- [Benchmarks](./BENCHMARK_RESULTS.de.md)
+- [Beitragsleitfaden](./CONTRIBUTING.de.md)
 
 ## 🤝 Mitwirken
 

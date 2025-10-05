@@ -163,10 +163,26 @@ impl BomRepository for MyCustomRepo {
 
 ## 📚 技术文档
 
-- [API 文档](https://docs.rs/bom-core)
-- [集成指南](./INTEGRATION.md)
-- [性能调优](./PERFORMANCE.md)
-- [FFI 使用指南](./FFI_GUIDE.md)
+### API 文档
+
+在本地生成 API 文档：
+
+```bash
+# 生成并在浏览器中打开文档
+cargo doc --no-deps --open
+
+# 生成所有 crate 的文档
+cargo doc --workspace --no-deps
+```
+
+文档位置：`target/doc/bom_core/index.html`
+
+### 其他文档
+
+- [快速入门](./QUICKSTART.zh-CN.md)
+- [架构概述](./PROJECT_SUMMARY.zh-CN.md)
+- [性能测试](./BENCHMARK_RESULTS.zh-CN.md)
+- [贡献指南](./CONTRIBUTING.zh-CN.md)
 
 ## 🤝 贡献参与
 
