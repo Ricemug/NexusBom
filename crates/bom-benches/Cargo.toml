@@ -1,0 +1,19 @@
+[package]
+name = "bom-benches"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+bom-core = { path = "../bom-core" }
+bom-graph = { path = "../bom-graph" }
+bom-calc = { path = "../bom-calc" }
+chrono.workspace = true
+rust_decimal.workspace = true
+uuid.workspace = true
+criterion.workspace = true
+
+[[bench]]
+name = "bom_benchmarks"
+harness = false

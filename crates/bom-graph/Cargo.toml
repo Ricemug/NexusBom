@@ -1,0 +1,19 @@
+[package]
+name = "bom-graph"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+bom-core = { path = "../bom-core" }
+serde.workspace = true
+thiserror.workspace = true
+rayon.workspace = true
+rust_decimal.workspace = true
+chrono.workspace = true
+uuid.workspace = true
+
+[dev-dependencies]
+criterion.workspace = true
+proptest.workspace = true

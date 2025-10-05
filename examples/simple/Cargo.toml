@@ -1,0 +1,13 @@
+[package]
+name = "simple-bom-example"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+
+[dependencies]
+bom-core = { path = "../../crates/bom-core" }
+bom-calc = { path = "../../crates/bom-calc" }
+rust_decimal = "1.33"
+chrono = "0.4"
+uuid = { version = "1.6", features = ["v4"] }

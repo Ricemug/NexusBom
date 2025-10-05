@@ -1,0 +1,39 @@
+# Rust
+target/
+**/target/
+Cargo.lock
+*.rs.bk
+*.pdb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code
+.claude/
+
+# Cache
+*.redb
+*.redb-shm
+*.redb-wal
+
+# Build artifacts
+*.a
+*.so
+*.dll
+*.dylib
+
+# Test outputs
+*.profraw
+*.profdata
+
+# Temporary files
+*.tmp
+*.log

@@ -1,0 +1,20 @@
+[package]
+name = "bom-ffi"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "staticlib"]
+
+[dependencies]
+bom-core = { path = "../bom-core" }
+bom-graph = { path = "../bom-graph" }
+bom-calc = { path = "../bom-calc" }
+serde_json.workspace = true
+rust_decimal.workspace = true
+chrono.workspace = true
+
+[build-dependencies]
+cbindgen.workspace = true

@@ -1,0 +1,19 @@
+[package]
+name = "bom-cache"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+bom-core = { path = "../bom-core" }
+moka.workspace = true
+redb.workspace = true
+serde.workspace = true
+rmp-serde.workspace = true
+thiserror.workspace = true
+rust_decimal.workspace = true
+chrono.workspace = true
+
+[dev-dependencies]
+criterion.workspace = true

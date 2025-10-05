@@ -1,0 +1,32 @@
+[package]
+name = "bom-adapters"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+bom-core = { path = "../bom-core" }
+bom-graph = { path = "../bom-graph" }
+serde.workspace = true
+serde_json.workspace = true
+rmp-serde.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+
+# Optional adapters - enable via features
+[features]
+default = []
+sap = []
+oracle = []
+rest-api = ["dep:reqwest", "dep:tokio"]
+
+[dependencies.reqwest]
+version = "0.11"
+optional = true
+features = ["json"]
+
+[dependencies.tokio]
+version = "1.35"
+optional = true
+features = ["rt-multi-thread"]

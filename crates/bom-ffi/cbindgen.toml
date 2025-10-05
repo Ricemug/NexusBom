@@ -1,0 +1,29 @@
+language = "C"
+include_version = true
+namespace = "bom"
+cpp_compat = true
+
+[export]
+include = ["BomEngine", "BomResultCode"]
+
+[export.rename]
+"BomEngine" = "BomEngine"
+"BomResultCode" = "BomResultCode"
+
+[parse]
+parse_deps = false
+include = ["bom-ffi"]
+
+[fn]
+prefix = ""
+postfix = ""
+args = "horizontal"
+rename_args = "None"
+
+[enum]
+rename_variants = "None"
+
+[defines]
+"target_os = windows" = "WINDOWS"
+"target_os = linux" = "LINUX"
+"target_os = macos" = "MACOS"
