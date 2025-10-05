@@ -81,10 +81,22 @@ jobs:
         with:
           path: artifacts
 
+      - name: Prepare release files
+        run: |
+          mkdir -p release
+          for dir in artifacts/*/; do
+            dirname=$(basename "$dir")
+            file=$(find "$dir" -type f)
+            if [ -n "$file" ]; then
+              cp "$file" "release/$dirname"
+            fi
+          done
+          ls -lh release/
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: artifacts/**/*
+          files: release/*
           draft: false
           prerelease: false
           generate_release_notes: true
