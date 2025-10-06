@@ -1,5 +1,4 @@
 use anyhow::Result;
-use colored::*;
 use serde::Serialize;
 
 pub fn format_output<T: Serialize>(data: &T, format: &str) -> Result<String> {
@@ -32,20 +31,4 @@ pub fn format_output<T: Serialize>(data: &T, format: &str) -> Result<String> {
         }
         _ => Ok(serde_json::to_string_pretty(data)?),
     }
-}
-
-pub fn print_table_header(headers: &[&str]) {
-    println!(
-        "{}",
-        headers
-            .iter()
-            .map(|h| h.bold().cyan().to_string())
-            .collect::<Vec<_>>()
-            .join(" | ")
-    );
-    println!("{}", "─".repeat(80).dimmed());
-}
-
-pub fn print_table_row(values: &[String]) {
-    println!("{}", values.join(" | "));
 }
